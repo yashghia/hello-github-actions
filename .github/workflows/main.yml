@@ -22,3 +22,16 @@ jobs:
           Write-Host "App - ${{ matrix.app_matrix }} and region ${{ matrix.region_matrix }}"
           Write-Host "{appname}={"${{matrix.app_matrix}}"} >> $GITHUB_OUTPUT
           Write-Host "{region}={"${{matrix.region_matrix}}"} >> $GITHUB_OUTPUT
+    outputs:
+      app_output: ${{ steps.matrix-status.outputs.appname }}
+      region_output: ${{ steps.matrix-status.outputs.region }}
+  report:
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:  
+      - name: report
+        id: report
+        shell: pwsh
+        run: |
+          Write-Host "{{needs.build.outputs.app_output}}"
+          Write-Host "{{needs.build.outputs.region_output}}"
