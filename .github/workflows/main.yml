@@ -1,6 +1,10 @@
 name: A workflow for my Hello World file
-on: push
-
+on : 
+  workflow_dispatch :
+    inputs:
+      version:
+        description: 'Application Version'     
+        required: true
 jobs:
   build:
     strategy:
