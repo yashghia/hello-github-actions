@@ -33,5 +33,5 @@ jobs:
         id: report
         shell: pwsh
         run: |
-          Write-Host "{{needs.build.outputs.app_output}}"
-          Write-Host "{{needs.build.outputs.region_output}}"
+          Write-Host ${{ needs.build.outputs.app_output }}
+          Write-Host ${{ needs.build.outputs.region_output }}
