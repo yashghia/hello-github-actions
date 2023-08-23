@@ -3,10 +3,18 @@ on: push
 
 jobs:
   build:
+    strategy:
+      matrix:
+        region_matrix: ['scus','eus']
+        app_matrix: ['csm','pub']
+      fail-fast: false
     name: Hello world action
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: ./action-a
-        with:
-          MY_NAME: "Mona"
+      - id: matrix-status
+        name: matrix status
+        shell: pwsh
+        run: |
+          Write-Host "App - ${{ matrix.app_matrix }} and region ${{ matrix.region_matrix }}"
+          Write-Host "{appname}={"${{matrix.app_matrix}}"} >> $GITHUB_OUTPUT
+          Write-Host "{region}={"${{matrix.region_matrix}}"} >> $GITHUB_OUTPUT
