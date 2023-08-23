@@ -20,8 +20,8 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "App - ${{ matrix.app_matrix }} and region ${{ matrix.region_matrix }}"
-          Write-Host "{appname}={"${{matrix.app_matrix}}"} >> $GITHUB_OUTPUT
-          Write-Host "{region}={"${{matrix.region_matrix}}"} >> $GITHUB_OUTPUT
+          Write-Host "appname="${{matrix.app_matrix}}" >> $GITHUB_OUTPUT
+          Write-Host "region="${{matrix.region_matrix}}" >> $GITHUB_OUTPUT
     outputs:
       app_output: ${{ steps.matrix-status.outputs.appname }}
       region_output: ${{ steps.matrix-status.outputs.region }}
