@@ -2,9 +2,14 @@ name: A workflow for my Hello World file
 on : 
   workflow_dispatch :
     inputs:
-      version:
-        description: 'Application Version'     
+      regions:
+        description: 'Azure regions'     
         required: true
+        default: "scus,eus"
+      apps:
+        description: 'Application names'     
+        required: true
+        default: "csm,pub"
 jobs:
   build:
     strategy:
@@ -17,14 +22,10 @@ jobs:
     steps:
       - id: matrix-status
         name: matrix status
-        shell: pwsh
         run: |
-          Write-Host "App - ${{ matrix.app_matrix }} and region ${{ matrix.region_matrix }}"
-          Write-Host "appname=${{matrix.app_matrix}} >> $Env:GITHUB_OUTPUT"
-          Write-Host "region=${{matrix.region_matrix}} >> $Env:GITHUB_OUTPUT"
+          echo "${{ matrix.app_matrix }}_${{matrix.region_matrix}}='failure'" >> $GITHUB_OUTPUT
     outputs:
-      app_output: ${{ steps.matrix-status.outputs.appname }}
-      region_output: ${{ steps.matrix-status.outputs.region }}
+      ${{ matrix.app_matrix }}_${{matrix.region_matrix}}: ${{ matrix.app_matrix }}_${{matrix.region_matrix}}
   report:
     needs: [ build ]
     runs-on: ubuntu-latest
@@ -33,5 +34,9 @@ jobs:
         id: report
         shell: pwsh
         run: |
-          Write-Host ${{ needs.build.outputs.app_output }}
-          Write-Host ${{ needs.build.outputs.region_output }}
+          foreach($region in $regions.split(',')){
+            foreach($app in $apps.split(',')){
+              Write-Host ${{ needs.build.outputs.$app_$region }}
+            }
+          }
+          
