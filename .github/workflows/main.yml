@@ -25,7 +25,7 @@ jobs:
         run: |
           echo "${{ matrix.app_matrix }}_${{matrix.region_matrix}}='failure'" >> $GITHUB_OUTPUT
     outputs:
-      ${{ matrix.app_matrix }}_${{matrix.region_matrix}}: ${{ matrix.app_matrix }}_${{matrix.region_matrix}}
+      "${{ matrix.app_matrix }}_${{matrix.region_matrix}}" : "${{ matrix.app_matrix }}_${{matrix.region_matrix}}"
   report:
     needs: [ build ]
     runs-on: ubuntu-latest
@@ -36,7 +36,7 @@ jobs:
         run: |
           foreach($region in $regions.split(',')){
             foreach($app in $apps.split(',')){
-              Write-Host ${{ needs.build.outputs.$app_$region }}
+              Write-Host ${{ needs.build.outputs.(env.$app)_(env.$region) }}
             }
           }
           
