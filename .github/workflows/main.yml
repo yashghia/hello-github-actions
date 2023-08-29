@@ -30,6 +30,7 @@ jobs:
         with:
           name: ${{ github.run_id }}_${{ matrix.app_matrix }}_${{matrix.region_matrix}}
           path: ${{ github.run_id }}_${{ matrix.app_matrix }}_${{matrix.region_matrix}}.txt
+          retention-days: 1
   report:
     needs: [ build ]
     runs-on: ubuntu-latest
@@ -47,13 +48,14 @@ jobs:
           $EmailTitle = "Failure Deploying following apps at [$(Get-Date -Format 'MM/dd/yyy')]"
           $EmailHtml = '<html><body>'
           $EmailHtml += '<p>Below is the list of Applications and Regions where deployment failed</p>'
+          $EmailHtml += '<p>Github Action Workflow URL -  ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}</p>'
           $EmailHtml += '<p><table border="2">'
           $EmailHtml += '<th>Application Name</th><th>Region</th>'
           $Files = Get-ChildItem 
           foreach($file in $Files){
               $appname = $file.name.split('_')[1]
               $region = $file.name.split('_')[-1]
-              $EmailHtml += "<tr><td>" + $appname + "</td><td>" + $region + "</td><td>"
+              $EmailHtml += "<tr><td>" + $appname + "</td><td>" + $region + "</td></tr>"
           }
           
           $EmailHtml += '</table></p>'
