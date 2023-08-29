@@ -23,20 +23,20 @@ jobs:
       - id: matrix-status
         name: matrix status
         run: |
-          echo "${{ matrix.app_matrix }}_${{matrix.region_matrix}}='failure'" >> $GITHUB_OUTPUT
-    outputs:
-      "${{ matrix.app_matrix }}_${{matrix.region_matrix}}" : "${{ matrix.app_matrix }}_${{matrix.region_matrix}}"
+          echo "${{ matrix.app_matrix }}_${{matrix.region_matrix}}=failure" > ${{ github.run_id }}_${{ matrix.app_matrix }}_${{matrix.region_matrix}}.txt
+      - id: upload-error-file
+        name: capture failure app and region names
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ github.run_id }}_${{ matrix.app_matrix }}_${{matrix.region_matrix}}
+          path: ${{ github.run_id }}_${{ matrix.app_matrix }}_${{matrix.region_matrix}}.txt
   report:
     needs: [ build ]
     runs-on: ubuntu-latest
     steps:  
-      - name: report
-        id: report
-        shell: pwsh
-        run: |
-          foreach($region in $regions.split(',')){
-            foreach($app in $apps.split(',')){
-              Write-Host ${{ needs.build.outputs.(env.$app)_(env.$region) }}
-            }
-          }
-          
+      - uses: actions/download-artifact@v3
+        with:
+          path: path/to/artifact
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: path/to/artifact
