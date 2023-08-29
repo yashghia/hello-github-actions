@@ -49,7 +49,7 @@ jobs:
           $EmailHtml += '<p>Below is the list of Applications and Regions where deployment failed</p>'
           $EmailHtml += '<p><table>'
           $EmailHtml += '<th>Application Name</th><th>Region</th>'
-          $Files = Get-ChildItem -Path path/to/artifact
+          $Files = Get-ChildItem
           foreach($file in $Files){
               $appname = $file.name.split('_')[1]
               $region = $file.name.split('_')[-1]
