@@ -60,8 +60,8 @@ jobs:
           $EmailHtml += '</body>'
           $EmailHtml += '</html>'
 
-          $securekey = ConvertTo-SecureString -AsPlainText -String $env:MAIL_PASSWORD -Force
-          $creds = New-Object System.Management.Automation.PSCredential ($env:MAIL_USERNAME, $securekey) 
+          $securekey = ConvertTo-SecureString -AsPlainText -String ${{ secrets.MAIL_PASSWORD }} -Force
+          $creds = New-Object System.Management.Automation.PSCredential (${{ secrets.MAIL_USERNAME }}, $securekey) 
           
           Write-Output "Sending email.."
           Send-MailMessage -Subject $EmailTitle -Body $EmailHtml -BodyAsHtml -From "no-reply@dev.arcgis.com" -To "yghia@esri.com" -SmtpServer email-smtp.us-east-1.amazonaws.com -Credential $creds -UseSsl -Port 587 
