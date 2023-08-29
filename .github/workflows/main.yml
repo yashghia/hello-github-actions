@@ -23,7 +23,7 @@ jobs:
       - id: matrix-status
         name: matrix status
         run: |
-          echo "${{ matrix.app_matrix }}_${{matrix.region_matrix}}=failure" > ${{ github.run_id }}_${{ matrix.app_matrix }}_${{matrix.region_matrix}}.txt
+          echo "failure" > ${{ github.run_id }}_${{ matrix.app_matrix }}_${{matrix.region_matrix}}.txt
       - id: upload-error-file
         name: capture failure app and region names
         uses: actions/upload-artifact@v3
@@ -37,9 +37,6 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           path: path/to/artifact
-      - name: Display structure of downloaded files
-        run: ls -R 
-        working-directory: path/to/artifact
       - name: process files for notification
         working-directory: path/to/artifact
         shell: pwsh
@@ -50,7 +47,7 @@ jobs:
           $EmailTitle = "Failure Deploying following apps at [$(Get-Date -Format 'MM/dd/yyy')]"
           $EmailHtml = '<html><body>'
           $EmailHtml += '<p>Below is the list of Applications and Regions where deployment failed</p>'
-          $EmailHtml += '<p><table>'
+          $EmailHtml += '<p><table border="2">'
           $EmailHtml += '<th>Application Name</th><th>Region</th>'
           $Files = Get-ChildItem 
           foreach($file in $Files){
