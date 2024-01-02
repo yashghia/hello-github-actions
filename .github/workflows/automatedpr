@@ -1,0 +1,31 @@
+name: Automated-Overlay-PR
+
+on:
+  push:
+    branches: 
+      - overlay/upload*
+
+jobs:
+  action-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Branch used
+        id: extract_branch
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "push" ]]; then
+            echo "::set-output name=branch_name::$(echo ${GITHUB_REF##*/})"
+          else
+            echo "::set-output name=branch_name::INVALID_EVENT_BRANCH_UNKNOWN"
+          fi
+      - name: Create PR
+        uses: devops-infra/action-pull-request@v0.5.5
+        with:
+          github_token: ${{ secrets.REPOSITORY_TOKEN }}
+          source_branch: ${{ steps.extract_branch.outputs.branch_name }}
+          target_branch: main
+          title: ${{ github.event.commits[0].message }}
+          label: automatic,enhancement,overlay
