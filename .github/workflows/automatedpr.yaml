@@ -3,7 +3,7 @@ name: Automated-Overlay-PR
 on:
   push:
     branches: 
-      - overlay/upload*
+      - 'overlay/upload*'
 
 jobs:
   action-pull-request:
