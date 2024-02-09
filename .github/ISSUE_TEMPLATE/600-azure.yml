@@ -1,7 +1,7 @@
 name: "Request: Azure"
 description: "Request for change on application hosted on Azure or Azure Infrastructure"
 title: "Request: Azure - REQUEST_DESCRIPTION"
-labels: ["account: azure","needs: triage","status: pending"]
+labels: ["account: azure","needs: triage","status: pending", "bug", "good first issue" ]
 assignees:
   - yashghia
 body:
