@@ -1,39 +1,3 @@
----
-name: "Request: Azure"
-about: "Request for change on application hosted on Azure or Azure Infrastructure"
-title: "Request: Azure - REQUEST_DESCRIPTION"
-labels: "account: azure,needs: triage,status: pending"
-assignees: "agol-devops-builds"
----
-# Description
-<!-- Please provide a brief description and justification of the permissions modification being requested. -->
-REQUEST_DETAILS
-
-<!-- If there are more details available (e.g. a reference Issue), add it here; otherwise, remove the following line. -->
-Reference: REFERENCE_ISSUE_URL
-
-# Points of Contact
-<!-- People that should have answers (or where to find answers) for any follow-up questions. -->
-Role | Contact
----- | ----
-ROLE_NAME | CONTACT_NAME
-ROLE_NAME | CONTACT_NAME
-
-# Needed By
-<!-- Ideally a date or a target release; helps with prioritization.
-    NOTES:
-        - The more vague the needed by date is, the more likely it is to get bumped for higher priority issues.
-        - Ideal notice is at least two weeks from needed by date; more time is always appreciated.
--->
-NEEDED_BY_WITH_EXPLANATION
-
-# Mentions
-<!-- Devtopia does not support assigning to teams, so a mention is required. -->
-Assignees: @WebGIS/ago-azure-devops
-
-<!-- Others that need to be included on any updates related to this issue. -->
-cc: DEVTOPIA_USER_NAMES
-
 name: "Request: Azure"
 description: "Request for change on application hosted on Azure or Azure Infrastructure"
 title: "Request: Azure - REQUEST_DESCRIPTION"
