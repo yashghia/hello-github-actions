@@ -3,7 +3,7 @@ description: "Request for change on application hosted on Azure or Azure Infrast
 title: "Request: Azure - REQUEST_DESCRIPTION"
 labels: ["account: azure","needs: triage","status: pending"]
 assignees:
-  - agol-devops-builds
+  - yashghia
 body:
   - type: textarea
     id: description
