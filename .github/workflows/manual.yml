@@ -17,7 +17,7 @@ jobs:
     name: Run PowerShell Core Script on Self-Hosted Runner  
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Print current date and time
       run: |
