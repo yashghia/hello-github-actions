@@ -14,11 +14,7 @@ on:
 jobs:
   run-powershell-script:
     runs-on: self-hosted
-    name: Run PowerShell Core Script on Self-Hosted Runner
-    defaults:
-      run:
-        shell: pwsh {0}
-    
+    name: Run PowerShell Core Script on Self-Hosted Runner  
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
