@@ -1,0 +1,32 @@
+name: Run PowerShell Script on Self-Hosted Runner
+
+on:
+  workflow_dispatch :
+    inputs:
+      regions:
+        description: 'Azure regions'     
+        required: true
+        default: "scus,eus"
+      apps:
+        description: 'Application names'     
+        required: true
+        default: "csm,pub"
+jobs:
+  run-powershell-script:
+    runs-on: self-hosted
+    name: Run PowerShell Core Script on Self-Hosted Runner
+    defaults:
+      run:
+        shell: pwsh {0}
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Print current date and time
+      run: |
+        for ($i = 1; $i -le 10; $i++) {
+          Write-Host "Current Date and Time: $(Get-Date)"
+          Start-Sleep -Seconds 1
+        }
+      shell: pwsh
